@@ -3,6 +3,8 @@
 import sys
 import random
 
+DEFAULT_YEETINGS = {"Yeet":"return", "YEET":"main", "Yeeeet":"(", "yeeeeT":")", "yeett":"int", "yeet":"printf", "Yeeet":"{", "yeeeT":"}", "yoted":";"}
+
 def get_file_info(file_name):
 
     f = open(file_name, "r")
@@ -13,12 +15,21 @@ def get_file_info(file_name):
 
 def yeet_dem_string(line, mappings):
 
-    firstDelPos=string.find("\"")
-    secondDelPos=string.find("\"")
+    for char in "\"\'":
 
-    yeeter = gimme_a_yeet(mappings)
+        first_char = line.find(char)+1
 
-    stringAfterReplace = string.replace(string[firstDelPos+1:secondDelPos], yeeter)
+        if first_char != -1:
+
+            second_char = line.find(char)
+
+            yeeter = gimme_a_yeet(mappings)
+
+            string_to_yeet = line[first_char:second_char]
+
+            line = line.replace(string_to_yeet, yeeter)
+
+            mappings[yeeter] = string_to_yeet
 
     return line, mappings
 
@@ -56,11 +67,9 @@ def yeet_regular_capitalisation_away_from_me_you_piece_of_yeet(string_to_yeet):
 
     return string_to_yeet.lower()
 
-def yeetify(code):
+def yeetify(code, mappings=DEFAULT_YEETINGS):
 
     code = code.split("\n")
-
-    mappings = {"Yeet":"return", "YEET":"main", "Yeeeet":"(", "yeeeeT":")", "yeett":"int", "yeet":"printf", "Yeeet":"{", "yeeeT":"}", "yoted":";"}
 
     for i in range(len(code)):
 
@@ -76,11 +85,19 @@ def yeetify(code):
 
     return code
 
+def check_yeetification(line):
+
+    return set(line.lower()) == {"y", "e", "t", " "}
+
 def yeetify_line(line, mappings):
 
+    line = " " + line + " "
+
+    if line == "": return "", mappings
+
     for yeet, mapping in mappings.items():
 
-        if not mapping in "{(^:\"'!)}": mapping = " "+mapping+" "
+        if not mapping in "{(^:\"'!)};": mapping = " "+mapping+" "
 
         line = line.replace(mapping, " "+yeet+" ")
 
@@ -89,12 +106,10 @@ def yeetify_line(line, mappings):
         if not mapping in "{(^:\"'!)}": mapping = " "+mapping+" "
 
         line = line.replace(mapping, " "+yeet+" ")
+
+    line = line[1:-1]
 
     line = line.replace("  ", " ")
-
-    if set(line.lower()) == {"y", "e", "t", " "}:
-
-        return line, mappings
 
     return line, mappings
 
@@ -104,4 +119,6 @@ if __name__ == "__main__":
 
     code = get_file_info(file_name)
 
-    print(yeetify(code))
+    for line in code.split("\n"):
+
+        print(yeet_dem_string(line, DEFAULT_YEETINGS)[0])
