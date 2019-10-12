@@ -27,8 +27,6 @@ def yeet_dem_string(line, mappings):
 
             string_to_yeet = string_to_yeet[:second_char]
 
-            print('yo', string_to_yeet)
-
             if string_to_yeet != "":
 
                 string_to_yeet = '"' + string_to_yeet + '"'
@@ -61,7 +59,11 @@ def gimme_a_yeet(mappings):
 
             else:
 
-                random_yeet += i*int(a*b*10)
+                x = int(a*b*10)
+
+                x = x if x > 0 else 1
+
+                random_yeet += i*x
 
         yeet = ''.join(map(yeet_regular_capitalisation_away_from_me_you_piece_of_yeet, random_yeet))
 
@@ -95,7 +97,7 @@ def yeetify(code, mappings=DEFAULT_YEETINGS):
 
 def check_yeetification(possibly_a_yoted_string):
 
-    return set(possibly_a_yoted_string.lower()) == {"y", "e", "t", " "}
+    return {"y", "e", "t"}.issubset(set(possibly_a_yoted_string.lower()))
 
 def yeetify_line(line, mappings):
 
