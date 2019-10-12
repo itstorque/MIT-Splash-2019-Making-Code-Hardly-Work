@@ -15,21 +15,29 @@ def get_file_info(file_name):
 
 def yeet_dem_string(line, mappings):
 
-    for char in "\"\'":
+    for char in "\'\"":
 
-        first_char = line.find(char)+1
+        while char in line:
 
-        if first_char != -1:
+            first_char = line.find(char)
 
-            second_char = line.find(char)
+            string_to_yeet = line[first_char+1:]
 
-            yeeter = gimme_a_yeet(mappings)
+            second_char = string_to_yeet.find(char)
 
-            string_to_yeet = line[first_char:second_char]
+            string_to_yeet = string_to_yeet[:second_char]
 
-            line = line.replace(string_to_yeet, yeeter)
+            print('yo', string_to_yeet)
 
-            mappings[yeeter] = string_to_yeet
+            if string_to_yeet != "":
+
+                string_to_yeet = '"' + string_to_yeet + '"'
+
+                yeeter = gimme_a_yeet(mappings)
+
+                line = line.replace(string_to_yeet, yeeter)
+
+                mappings[yeeter] = string_to_yeet
 
     return line, mappings
 
@@ -85,15 +93,17 @@ def yeetify(code, mappings=DEFAULT_YEETINGS):
 
     return code
 
-def check_yeetification(line):
+def check_yeetification(possibly_a_yoted_string):
 
-    return set(line.lower()) == {"y", "e", "t", " "}
+    return set(possibly_a_yoted_string.lower()) == {"y", "e", "t", " "}
 
 def yeetify_line(line, mappings):
 
     line = " " + line + " "
 
     if line == "": return "", mappings
+
+    line, mappings = yeet_dem_string(line, mappings)
 
     for yeet, mapping in mappings.items():
 
@@ -107,6 +117,18 @@ def yeetify_line(line, mappings):
 
         line = line.replace(mapping, " "+yeet+" ")
 
+    grand_yote = line.split(" ")
+
+    for yote in grand_yote:
+
+        if not check_yeetification(yote) and yote.replace(" ", "") != "":
+
+            yeet_pass = gimme_a_yeet(mappings)
+
+            line = line.replace(yote, yeet_pass)
+
+            mappings[yeet_pass] = yote
+
     line = line[1:-1]
 
     line = line.replace("  ", " ")
@@ -119,6 +141,8 @@ if __name__ == "__main__":
 
     code = get_file_info(file_name)
 
-    for line in code.split("\n"):
+    print(yeetify(code))
 
-        print(yeet_dem_string(line, DEFAULT_YEETINGS)[0])
+    # for line in code.split("\n"):
+    #
+    #     print(yeet_dem_string(line, DEFAULT_YEETINGS)[0])
