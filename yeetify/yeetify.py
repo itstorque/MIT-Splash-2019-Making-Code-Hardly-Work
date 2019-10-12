@@ -5,6 +5,16 @@ import random
 
 DEFAULT_YEETINGS = {"Yeet":"return", "YEET":"main", "Yeeeet":"(", "yeeeeT":")", "yeett":"int", "yeet":"printf", "Yeeet":"{", "yeeeT":"}", "yoted":";"}
 
+class NotSureICanYeetifyThis(Exception):
+
+    def __init___(self):
+
+        Exception.__init__(self)
+
+    def __str__(self):
+
+        return "\n\nYeetifier is not yeetly sure that the yeetification of the to-be-yeetified code is yeetly formatted into yeetable C code. I would yeet myself to be sure that the extension of the yeetfile is '.c' and the code is of yeet C syntax.\n"
+
 def get_file_info(file_name):
 
     f = open(file_name, "r")
@@ -141,10 +151,20 @@ if __name__ == "__main__":
 
     file_name = sys.argv[1]
 
+    if file_name[-2:] != ".c":
+
+        raise NotSureICanYeetifyThis
+
     code = get_file_info(file_name)
 
-    print(yeetify(code))
+    yeetified_code = yeetify(code)
 
-    # for line in code.split("\n"):
-    #
-    #     print(yeet_dem_string(line, DEFAULT_YEETINGS)[0])
+    yeet_file = file_name.replace(".c", ".yeet.c")
+
+    f = open(yeet_file,"w+")
+
+    f.write(yeetified_code)
+
+    f.close()
+
+    print("Your file has been saved as " + yeet_file)
