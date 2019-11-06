@@ -1,4 +1,6 @@
-![Class Logo](/assets/class_logo.jpg)
+<p align="center">
+   <img alt="Class Logo" src="/assets/class_logo.jpg" height="300px">
+</p>
 
 # MIT Splash 2019 - Making Code Hard(ly Work)
 All the resources used in the 2019 Splash Class, Making Code Hard(ly Work) as taught by Hannah Savoldy ([@hsavoldy](https://www.github.com/hsavoldy)) and Tareq El Dandachi ([@tareqdandachi](https://www.github.com/tareqdandachi)).
