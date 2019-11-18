@@ -10,6 +10,7 @@
 - Real-Time
 - Agile
 - Crowd-Sourced
+- Disrupt
 
 # AI Stuff
 - Machine Learning
