@@ -80,5 +80,6 @@
 - Phishing
 - GNU
 - Linux
+- GNU/Linux
 - Skript Kiddie
 - Crowd-Sourced Surveillance
